@@ -1,0 +1,109 @@
+@use "./normalize.scss" as *;
+
+$fontFamily: alipuhui, sans-serif;
+
+html,
+.wrapper,
+body,
+body > div:not([class], [id]) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    background-color: #fff;
+}
+
+.question {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.questionContent {
+    color: #212121;
+    font-family: $fontFamily;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+}
+
+.questionDes {
+    color: #757575;
+    font-family: $fontFamily;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+}
+
+.main {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 40px;
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-flow: row nowrap;
+    font-family: $fontFamily;
+    color: #bdbdbd;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    font-size: 14px;
+    line-height: 21px;
+    margin-bottom: 8.5px;
+}
+
+.totalValue {
+    color: #22a6b3;
+    padding: 0 5px;
+    flex: 0 0 auto;
+}
+
+.mainContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    width: calc(100% + 20px);
+}
+
+.item {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    color: #4d4d4d;
+    letter-spacing: 0.2px;
+    font-family: $fontFamily;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 16.5px;
+    border: 0.6px solid #ebebeb;
+    border-radius: 6px;
+    margin-right: 20px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    &.active {
+        background-color: #f7feff;
+        border-color: #3cbbc7;
+        color: #22a6b3;
+    }
+}
