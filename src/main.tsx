@@ -6,7 +6,7 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { comms } from ".";
 import Item from "./item";
 import { OptionProps } from "./unit";
@@ -14,75 +14,109 @@ import { useEffect } from "react";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
+
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
 const Temp: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const [activeCode, setActiveCode] = useState<OptionProps[]>();
+    const [activeOptions, setActiveOptions] = useState(() => {
+        const arr = comms.config.options?.[0] ?? [];
+        const state: Record<string, OptionProps[]> = {};
+        for (let i = 0; i < arr.length; i++) {
+            state[arr[i].code] = [];
+        }
+        return { ...state };
+    });
 
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
     useEffect(() => {
-        const list = comms.config.options ?? [];
-        const arr = activeCode ?? [];
+        const rows = comms.config.options?.[0] ?? [];
+        const cols = comms.config.options?.[1] ?? [];
 
-        const state: Record<string, "0" | "1"> = {};
+        const state: Record<string, Record<string, "0" | "1">> = {};
 
-        for (let i = 0; i < list.length; i++) {
-            let status = false;
-            const data = list[i];
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
 
-            for (let j = 0; j < arr.length; ) {
-                const item = arr[j];
-                if (item.code === data.code) {
-                    status = true;
-                    j = arr.length;
-                } else {
-                    ++j;
+            const arr = activeOptions?.[row.code] ?? [];
+            for (let j = 0; j < cols.length; j++) {
+                let status = false;
+                const col = cols[j];
+
+                for (let k = 0; k < arr.length; ) {
+                    const item = arr[k];
+                    if (item.code === col.code) {
+                        status = true;
+                        k = arr.length;
+                    } else {
+                        ++k;
+                    }
                 }
-            }
 
-            state[data.code] = status ? "1" : "0";
+                state[row.code] = Object.assign({}, state[row.code], {
+                    [col.code]: status ? "1" : "0",
+                });
+            }
         }
         comms.state = state;
-    }, [activeCode]);
+    }, [activeOptions]);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
     /************* This section will include this component general function *************/
 
-    const handleClick = (item: OptionProps) => {
-        setActiveCode((pre) => {
-            if (Array.isArray(pre)) {
-                pre.push({ ...item });
-                return [...pre];
+    const handleClick = (row: OptionProps, col: OptionProps) => {
+        setActiveOptions((pre) => {
+            if (pre[row.code]) {
+                pre[row.code].push({ ...col });
+            } else {
+                pre[row.code] = [{ ...col }];
             }
-            return [{ ...item }];
+            return { ...pre };
         });
     };
 
-    const list = comms.config.options ?? [];
+    const cols = comms.config.options?.[1] ?? [];
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <div className="main">
-            <div className="total">
-                共<span className="totalValue">{list.length}</span>项
-            </div>
-            <div className="mainContainer">
-                {list.map((item) => {
-                    return (
-                        <Item
-                            data={{ ...item }}
-                            key={item.code}
-                            active={activeCode?.some((data) => data.code === item.code)}
-                            onClick={() => handleClick(item)}
-                        />
-                    );
-                })}
-            </div>
+            {comms.config.options?.[0].map((row, n) => {
+                return (
+                    <Fragment key={row.code}>
+                        {n > 0 && <div className="blank" />}
+                        <div className="col">
+                            <div
+                                className="question"
+                                dangerouslySetInnerHTML={{
+                                    __html: row.content,
+                                }}
+                            />
+
+                            <div className="total">
+                                共<span className="totalValue">{cols.length}</span>项
+                            </div>
+                            <div className="mainContainer">
+                                {cols.map((col) => {
+                                    return (
+                                        <Item
+                                            data={{ ...col }}
+                                            key={col.code}
+                                            active={activeOptions?.[row.code].some(
+                                                (data) => data.code === col.code,
+                                            )}
+                                            onClick={() => handleClick(row, col)}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </Fragment>
+                );
+            })}
         </div>
     );
 };
