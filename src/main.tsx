@@ -103,13 +103,18 @@ const Temp: React.FC = () => {
                                 {cols.map((col) => {
                                     return (
                                         <Item
-                                            data={{ ...col }}
                                             key={col.code}
                                             active={activeOptions?.[row.code].some(
                                                 (data) => data.code === col.code,
                                             )}
                                             onClick={() => handleClick(row, col)}
-                                        />
+                                        >
+                                            <span
+                                                dangerouslySetInnerHTML={{
+                                                    __html: col.content,
+                                                }}
+                                            />
+                                        </Item>
                                     );
                                 })}
                             </div>
