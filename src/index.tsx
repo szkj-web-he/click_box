@@ -157,7 +157,7 @@ const Main: React.FC = () => {
             )}
             {show && (
                 <div className="floating_button">
-                    <div
+                    <Div
                         className="toTop_button"
                         onClick={() => {
                             const scrollBody = getScrollBody(ref.current);
@@ -174,7 +174,7 @@ const Main: React.FC = () => {
                             className="top_triangle"
                             color={topActive ? "#4D4D4D" : "#EBEBEB"}
                         />
-                    </div>
+                    </Div>
                     <Div
                         className="toBottom_button"
                         onClick={() => {
