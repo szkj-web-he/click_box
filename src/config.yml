@@ -7,7 +7,7 @@ options:
     [
         [
             { "code": "a", "content": "A. 您觉得下列物品中，你会购买其中的哪些？" },
-            { "code": "b", "content": "A. 您觉得下列物品中，你喜欢哪些？" },
+            { "code": "b", "content": "B. 您觉得下列物品中，你喜欢哪些？" },
         ],
         [
             { "code": "1", "content": "T恤" },

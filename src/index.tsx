@@ -10,6 +10,7 @@ import { ScrollComponent } from "./Scroll";
 import { isMobile } from "./isMobile";
 import { getScrollBody } from "./unit";
 import Triangle from "./triangle";
+import Div from "./item";
 
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
@@ -174,7 +175,7 @@ const Main: React.FC = () => {
                             color={topActive ? "#4D4D4D" : "#EBEBEB"}
                         />
                     </div>
-                    <div
+                    <Div
                         className="toBottom_button"
                         onClick={() => {
                             const scrollBody = getScrollBody(ref.current);
@@ -191,7 +192,7 @@ const Main: React.FC = () => {
                             className="bottom_triangle"
                             color={bottomActive ? "#4D4D4D" : "#EBEBEB"}
                         />
-                    </div>
+                    </Div>
                 </div>
             )}
         </div>

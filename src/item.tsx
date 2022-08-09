@@ -7,22 +7,21 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React from "react";
-import { OptionProps } from "./unit";
 import { isMobile } from "./isMobile";
 import { useRef } from "react";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
-interface TempProps {
-    data: OptionProps;
-
+interface TempProps extends React.HTMLAttributes<HTMLDivElement> {
     active?: boolean;
 
     onClick: () => void;
+
+    children?: React.ReactNode;
 }
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
-const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
+const Temp: React.FC<TempProps> = ({ active, onClick, children, ...props }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
     const touchStart = useRef(false);
@@ -79,8 +78,9 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            {...props}
         >
-            {data.content}
+            {children}
         </div>
     );
 };
