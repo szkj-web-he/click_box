@@ -31,42 +31,37 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
 
     const timer = useRef<number>();
 
-    const [ready, setReady] = useState(false);
-
     const rowsRef = useRef<Array<HTMLElement | null>>([]);
+
+    const rowTimer = useRef<number>();
+
+    const [loading, setLoading] = useState(true);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
 
     useEffect(() => {
+        void document.fonts.ready.then(() => {
+            setLoading(false);
+        });
+    }, []);
+
+    useEffect(() => {
         return () => {
             timer.current && window.clearTimeout(timer.current);
+            rowTimer.current && window.clearTimeout(rowTimer.current);
         };
     }, []);
 
     useEffect(() => {
-        const fn = () => {
-            setReady(true);
-        };
-        window.addEventListener("load", fn);
-        return () => {
-            window.removeEventListener("load", fn);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (ready) {
-            const fn = () => {
-                const data = getActiveStatus(ref.current, rowsRef.current);
-                setShow(data.overflow);
-                activeIndex.current = data.active;
-                setTopActive(data.active > 0);
-                setBottomActive(data.active < rowsRef.current.length - 1);
-            };
-
-            fn();
+        if (!loading) {
+            const data = getActiveStatus(ref.current, rowsRef.current);
+            setShow(data.overflow);
+            activeIndex.current = data.active;
+            setTopActive(data.active > 0);
+            setBottomActive(data.active < rowsRef.current.length - 1);
         }
-    }, [ready]);
+    }, [loading]);
 
     useEffect(() => {
         const fn = () => {
@@ -97,15 +92,25 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
         timer.current = window.setTimeout(() => {
             const data = getActiveStatus(ref.current, rowsRef.current);
             activeIndex.current = data.active;
+            console.log(data.active);
             setTopActive(data.active > 0);
             setBottomActive(data.active < rowsRef.current.length - 1);
         });
     };
 
     const callback: JumpContextType = (index, el) => {
-        if (rowsRef.current[index] !== el) {
-            rowsRef.current[index] = el;
+        if (loading) {
+            return;
         }
+        rowsRef.current[index] = el;
+        rowTimer.current && window.clearTimeout(rowTimer.current);
+        rowTimer.current = window.setTimeout(() => {
+            const data = getActiveStatus(ref.current, rowsRef.current);
+            setShow(data.overflow);
+            activeIndex.current = data.active;
+            setTopActive(data.active > 0);
+            setBottomActive(data.active < rowsRef.current.length - 1);
+        }, 17);
     };
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
