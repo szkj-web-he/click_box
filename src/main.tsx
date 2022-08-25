@@ -11,6 +11,7 @@ import { comms } from ".";
 import Item from "./item";
 import { OptionProps } from "./unit";
 import { useEffect } from "react";
+import { Row } from "./Components/row";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -88,7 +89,7 @@ const Temp: React.FC = () => {
                 return (
                     <Fragment key={row.code}>
                         {n > 0 && <div className="blank" />}
-                        <div className="col">
+                        <Row className="row" index={n}>
                             <div
                                 className="question"
                                 dangerouslySetInnerHTML={{
@@ -118,7 +119,7 @@ const Temp: React.FC = () => {
                                     );
                                 })}
                             </div>
-                        </div>
+                        </Row>
                     </Fragment>
                 );
             })}
