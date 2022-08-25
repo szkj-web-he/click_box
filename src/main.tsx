@@ -11,6 +11,7 @@ import { comms } from ".";
 import Item from "./item";
 import { OptionProps } from "./unit";
 import { useEffect } from "react";
+import { Row } from "./Components/row";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -33,23 +34,10 @@ const Temp: React.FC = () => {
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
     useEffect(() => {
-        const rows = comms.config.options?.[0] ?? [];
-        const cols = comms.config.options?.[1] ?? [];
+        const state: Record<string, string> = {};
 
-        const state: Record<string, Record<string, "0" | "1">> = {};
-
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-
-            const data = activeOptions?.[row.code];
-            for (let j = 0; j < cols.length; j++) {
-                const col = cols[j];
-                const status = col.code === data.code;
-
-                state[row.code] = Object.assign({}, state[row.code], {
-                    [col.code]: status ? "1" : "0",
-                });
-            }
+        for (const key in activeOptions) {
+            state[key] = activeOptions[key].code;
         }
         comms.state = state;
     }, [activeOptions]);
@@ -74,7 +62,7 @@ const Temp: React.FC = () => {
                 return (
                     <Fragment key={row.code}>
                         {n > 0 && <div className="blank" />}
-                        <div className="col">
+                        <Row className="row" index={n}>
                             <div
                                 className="question"
                                 dangerouslySetInnerHTML={{
@@ -100,7 +88,7 @@ const Temp: React.FC = () => {
                                     );
                                 })}
                             </div>
-                        </div>
+                        </Row>
                     </Fragment>
                 );
             })}

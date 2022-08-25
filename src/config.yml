@@ -8,6 +8,11 @@ options:
         [
             { "code": "a", "content": "A. 您觉得下列物品中，你会购买其中的哪些？" },
             { "code": "b", "content": "B. 您觉得下列物品中，你喜欢哪些？" },
+            { "code": "c", "content": "C. 问题3？" },
+            { "code": "d", "content": "D. 问题4？" },
+            { "code": "e", "content": "E. 问题5？" },
+            { "code": "f", "content": "F. 问题6？" },
+            { "code": "g", "content": "G. 问题7？" },
         ],
         [
             { "code": "1", "content": "T恤" },
