@@ -92,7 +92,6 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
         timer.current = window.setTimeout(() => {
             const data = getActiveStatus(ref.current, rowsRef.current);
             activeIndex.current = data.active;
-            console.log(data.active);
             setTopActive(data.active > 0);
             setBottomActive(data.active < rowsRef.current.length - 1);
         });

@@ -1,12 +1,12 @@
+import React from "react";
+import "./elementsFromPointPolyfill.ts";
 import "./font.scss";
 import "./style.scss";
-import "./elementsFromPointPolyfill.ts";
-import React, { useEffect, useState } from "react";
 
-import { PluginComms, ConfigYML } from "@possie-engine/dr-plugin-sdk";
+import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
+import JumpWrap from "./Components/jumpWrap";
 import Header from "./header";
 import MainContent from "./main";
-import JumpWrap from "./Components/jumpWrap";
 
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
@@ -24,16 +24,10 @@ export const comms = new PluginComms({
 const Main: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const [loading, setLoading] = useState(true);
 
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
-    useEffect(() => {
-        void document.fonts.ready.then(() => {
-            setLoading(false);
-        });
-    }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
@@ -43,17 +37,7 @@ const Main: React.FC = () => {
 
     return (
         <div className="wrapper">
-            {loading && <>加载字体中……</>}
-            <JumpWrap
-                style={
-                    loading
-                        ? {
-                              height: 0,
-                              opacity: 0,
-                          }
-                        : {}
-                }
-            >
+            <JumpWrap>
                 <Header />
                 <MainContent />
             </JumpWrap>
