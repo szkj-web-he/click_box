@@ -71,12 +71,25 @@ const Temp: React.FC = () => {
 
     const handleClick = (row: OptionProps, col: OptionProps) => {
         setActiveOptions((pre) => {
-            if (pre[row.code]) {
-                pre[row.code].push({ ...col });
-            } else {
-                pre[row.code] = [{ ...col }];
+            const data = { ...pre };
+            const arr = [...data[row.code]];
+            let n = -1;
+            for (let i = 0; i < arr.length; ) {
+                if (arr[i].code === col.code) {
+                    n = i;
+                    i = arr.length;
+                } else {
+                    ++i;
+                }
             }
-            return { ...pre };
+
+            if (n >= 0) {
+                arr.splice(n, 1);
+            } else {
+                arr.push({ ...col });
+            }
+            data[row.code] = [...arr];
+            return { ...data };
         });
     };
 
