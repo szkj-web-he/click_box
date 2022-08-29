@@ -55,11 +55,23 @@ const Temp: React.FC = () => {
 
     const handleClick = (item: OptionProps) => {
         setActiveCode((pre) => {
-            if (Array.isArray(pre)) {
-                pre.push({ ...item });
-                return [...pre];
+            const arr = pre ? [...pre] : [];
+            let n = -1;
+            for (let i = 0; i < arr.length; ) {
+                if (arr[i].code === item.code) {
+                    n = i;
+                    i = arr.length;
+                } else {
+                    ++i;
+                }
             }
-            return [{ ...item }];
+
+            if (n >= 0) {
+                arr.splice(n, 1);
+            } else {
+                arr.push({ ...item });
+            }
+            return [...arr];
         });
     };
 
