@@ -1,11 +1,11 @@
 import React from "react";
-import "./elementsFromPointPolyfill.ts";
 import "./font.scss";
 import "./style.scss";
 
 import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
 import Header from "./header";
 import MainContent from "./main";
+import { ScrollComponent } from "./Scroll";
 
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
@@ -35,10 +35,14 @@ const Main: React.FC = () => {
 
     return (
         <div className="wrapper">
-            <div>
+            <ScrollComponent
+                hidden={{
+                    x: true,
+                }}
+            >
                 <Header />
                 <MainContent />
-            </div>
+            </ScrollComponent>
         </div>
     );
 };

@@ -6,10 +6,11 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React from "react";
-import { OptionProps } from "./unit";
+import React, { useRef } from "react";
 import { isMobile } from "./isMobile";
-import { useRef } from "react";
+import { OptionProps } from "./unit";
+import leftBg from "./Image/btn_left.png";
+import rightBg from "./Image/btn_right.png";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -80,7 +81,18 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
-            {data.content}
+            <div className="item_bg">
+                <img src={leftBg} alt="" className="item_leftBg" />
+                <div className="item_contentBg" />
+                <img src={rightBg} alt="" className="item_rightBg" />
+            </div>
+
+            <span
+                className="itemContent"
+                dangerouslySetInnerHTML={{
+                    __html: data.content,
+                }}
+            />
         </div>
     );
 };
