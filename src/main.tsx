@@ -19,12 +19,34 @@ import { useEffect } from "react";
 const Temp: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const [activeCode, setActiveCode] = useState<OptionProps>();
+    const [activeCode, setActiveCode] = useState<OptionProps[]>();
+
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
     useEffect(() => {
-        comms.state = activeCode?.code ?? null;
+        const list = comms.config.options ?? [];
+        const arr = activeCode ?? [];
+
+        const state: Record<string, "0" | "1"> = {};
+
+        for (let i = 0; i < list.length; i++) {
+            let status = false;
+            const data = list[i];
+
+            for (let j = 0; j < arr.length; ) {
+                const item = arr[j];
+                if (item.code === data.code) {
+                    status = true;
+                    j = arr.length;
+                } else {
+                    ++j;
+                }
+            }
+
+            state[data.code] = status ? "1" : "0";
+        }
+        comms.state = state;
     }, [activeCode]);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
@@ -32,7 +54,25 @@ const Temp: React.FC = () => {
     /************* This section will include this component general function *************/
 
     const handleClick = (item: OptionProps) => {
-        setActiveCode({ ...item });
+        setActiveCode((pre) => {
+            const arr = pre ? [...pre] : [];
+            let n = -1;
+            for (let i = 0; i < arr.length; ) {
+                if (arr[i].code === item.code) {
+                    n = i;
+                    i = arr.length;
+                } else {
+                    ++i;
+                }
+            }
+
+            if (n >= 0) {
+                arr.splice(n, 1);
+            } else {
+                arr.push({ ...item });
+            }
+            return [...arr];
+        });
     };
 
     const list = comms.config.options ?? [];
@@ -49,7 +89,7 @@ const Temp: React.FC = () => {
                         <Item
                             data={{ ...item }}
                             key={item.code}
-                            active={activeCode?.code === item.code}
+                            active={activeCode?.some((data) => data.code === item.code)}
                             onClick={() => handleClick(item)}
                         />
                     );
