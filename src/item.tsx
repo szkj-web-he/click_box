@@ -6,12 +6,14 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { isMobile } from "./isMobile";
 import { OptionProps } from "./unit";
-import leftBg from "./Image/btn_left.png";
-import rightBg from "./Image/btn_right.png";
-/* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
+import item from "./Image/item.png";
+// import leftBg from "./Image/btn_left.png";
+// import rightBg from "./Image/btn_right.png";
+/* import { useEffect } from 'react';
+<------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
 interface TempProps {
@@ -29,9 +31,56 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     const touchStart = useRef(false);
 
     const touchMove = useRef(false);
+
+    const ref = useRef<HTMLCanvasElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
+
+    useEffect(() => {
+        const fn = () => {
+            const el = ref.current;
+            if (!el) {
+                return;
+            }
+            const parent = el.parentElement;
+            if (!parent) {
+                return;
+            }
+            const width = parent.offsetWidth;
+            const height = parent.offsetHeight;
+
+            el.width = width;
+            el.height = height;
+            const ctx = el.getContext("2d");
+            if (!ctx) {
+                return;
+            }
+            const margin = 1.5;
+            const startX = margin;
+            const startY = margin;
+            const endX = width - margin;
+            const endY = height - margin;
+            const padding = 8;
+
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 0.5;
+
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX - padding, startY);
+            ctx.lineTo(endX, startY + padding);
+            ctx.lineTo(endX, endY);
+            ctx.lineTo(startX + padding, endY);
+            ctx.lineTo(startX, endY - padding);
+            ctx.lineTo(startX, startY);
+            ctx.closePath();
+            ctx.stroke();
+        };
+        fn();
+        void document.fonts.ready.then(fn);
+    }, []);
+
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
     /************* This section will include this component general function *************/
@@ -82,11 +131,12 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             onTouchEnd={handleTouchEnd}
         >
             <div className="item_bg">
-                <img src={leftBg} alt="" className="item_leftBg" />
-                <div className="item_contentBg" />
-                <img src={rightBg} alt="" className="item_rightBg" />
+                <div className="item_circle1" />
+                <div className="item_circle2" />
             </div>
+            <img src={item} alt="" className="item_icon" />
 
+            <canvas ref={ref} className="item_border" />
             <span
                 className="itemContent"
                 dangerouslySetInnerHTML={{
