@@ -7,12 +7,21 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React from "react";
+import icon from "../../../Image/icon_triangle.png";
+import iconActive from "../../../Image/icon_triangleActive.png";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
+
+interface TempProps {
+    active?: boolean;
+
+    placement: "top" | "bottom";
+}
+
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
-const Temp: React.FC<React.SVGAttributes<SVGSVGElement>> = ({ ...props }) => {
+const Temp: React.FC<TempProps> = ({ active, placement }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
@@ -23,19 +32,13 @@ const Temp: React.FC<React.SVGAttributes<SVGSVGElement>> = ({ ...props }) => {
     /************* This section will include this component general function *************/
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <svg
-            width="20"
-            height="15"
-            viewBox="0 0 20 15"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path
-                d="M8.68978 13.6898C9.41339 14.4134 10.5866 14.4134 11.3102 13.6898L19.3368 5.66317C20.5041 4.49588 19.6774 2.5 18.0266 2.5H1.9734C0.322602 2.5 -0.504119 4.49588 0.663169 5.66317L8.68978 13.6898Z"
-                fill="currentColor"
-            />
-        </svg>
+        <div className={`jumpBtn_${placement}${active ? " active" : ""}`}>
+            <img src={icon} alt="" className="jumpBtn_icon" />
+            <img src={iconActive} alt="" className="jumpBtn_iconActive" />
+        </div>
     );
+
+    // <img src={active ? iconActive : icon}  />;
 };
 /* <------------------------------------ **** FUNCTION COMPONENT END **** ------------------------------------ */
 export default Temp;

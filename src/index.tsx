@@ -34,7 +34,7 @@ const Main: React.FC = () => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
 
     return (
-        <JumpWrap>
+        <JumpWrap className="wrapper">
             <Header />
             <MainContent />
         </JumpWrap>

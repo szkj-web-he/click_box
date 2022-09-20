@@ -6,22 +6,24 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React from "react";
+import React, { useRef } from "react";
 import { isMobile } from "./isMobile";
-import { useRef } from "react";
+import { OptionProps } from "./unit";
+import leftBg from "./Image/btn_left.png";
+import rightBg from "./Image/btn_right.png";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
-interface TempProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TempProps {
+    data: OptionProps;
+
     active?: boolean;
 
     onClick: () => void;
-
-    children?: React.ReactNode;
 }
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
-const Temp: React.FC<TempProps> = ({ active, onClick, children, ...props }) => {
+const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
     const touchStart = useRef(false);
@@ -78,9 +80,19 @@ const Temp: React.FC<TempProps> = ({ active, onClick, children, ...props }) => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            {...props}
         >
-            {children}
+            <div className="item_bg">
+                <img src={leftBg} alt="" className="item_leftBg" />
+                <div className="item_contentBg" />
+                <img src={rightBg} alt="" className="item_rightBg" />
+            </div>
+
+            <span
+                className="itemContent"
+                dangerouslySetInnerHTML={{
+                    __html: data.content,
+                }}
+            />
         </div>
     );
 };
