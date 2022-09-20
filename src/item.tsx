@@ -47,11 +47,10 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             if (!parent) {
                 return;
             }
-            const width = parent.offsetWidth;
-            const height = parent.offsetHeight;
+            const rect = parent.getBoundingClientRect();
 
-            el.width = width;
-            el.height = height;
+            el.width = rect.width;
+            el.height = rect.height;
             const ctx = el.getContext("2d");
             if (!ctx) {
                 return;
@@ -59,8 +58,8 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             const margin = 1.5;
             const startX = margin;
             const startY = margin;
-            const endX = width - margin;
-            const endY = height - margin;
+            const endX = rect.width - margin;
+            const endY = rect.height - margin;
             const padding = 8;
 
             ctx.beginPath();
@@ -78,6 +77,12 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             ctx.stroke();
         };
         fn();
+        window.addEventListener("resize", fn);
+        document.fonts.addEventListener("loading", fn);
+        return () => {
+            window.removeEventListener("resize", fn);
+            document.fonts.removeEventListener("loading", fn);
+        };
     }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */

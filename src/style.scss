@@ -103,6 +103,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
+    overflow: hidden;
     clip-path: polygon(
         0% 0%,
         calc(100% - 8.5px) 0%,
@@ -161,6 +162,8 @@ body {
     top: 0;
     left: 0;
     z-index: 5;
+    font-size: 0;
+    letter-spacing: 0;
 }
 
 @mixin ItemBgImage {
@@ -185,8 +188,9 @@ body {
     margin-right: 20px;
     transition: all 0.2s linear;
     cursor: pointer;
-    position: relative;
     overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
     &.active {
         .item_bg {
             background-color: #f0b398;
