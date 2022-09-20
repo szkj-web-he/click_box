@@ -24,9 +24,9 @@ const Temp: React.FC = () => {
     /************* This section will include this component HOOK function *************/
     const [activeOptions, setActiveOptions] = useState(() => {
         const arr = comms.config.options?.[0] ?? [];
-        const state: Record<string, OptionProps[]> = {};
+        const state: Record<string, OptionProps> = {};
         for (let i = 0; i < arr.length; i++) {
-            state[arr[i].code] = [];
+            state[arr[i].code] = { code: "", content: "" };
         }
         return { ...state };
     });
@@ -35,33 +35,10 @@ const Temp: React.FC = () => {
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
     useEffect(() => {
-        const rows = comms.config.options?.[0] ?? [];
-        const cols = comms.config.options?.[1] ?? [];
+        const state: Record<string, string> = {};
 
-        const state: Record<string, Record<string, "0" | "1">> = {};
-
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-
-            const arr = activeOptions?.[row.code] ?? [];
-            for (let j = 0; j < cols.length; j++) {
-                let status = false;
-                const col = cols[j];
-
-                for (let k = 0; k < arr.length; ) {
-                    const item = arr[k];
-                    if (item.code === col.code) {
-                        status = true;
-                        k = arr.length;
-                    } else {
-                        ++k;
-                    }
-                }
-
-                state[row.code] = Object.assign({}, state[row.code], {
-                    [col.code]: status ? "1" : "0",
-                });
-            }
+        for (const key in activeOptions) {
+            state[key] = activeOptions[key].code;
         }
         comms.state = state;
     }, [activeOptions]);
@@ -72,25 +49,8 @@ const Temp: React.FC = () => {
 
     const handleClick = (row: OptionProps, col: OptionProps) => {
         setActiveOptions((pre) => {
-            const data = { ...pre };
-            const arr = [...data[row.code]];
-            let n = -1;
-            for (let i = 0; i < arr.length; ) {
-                if (arr[i].code === col.code) {
-                    n = i;
-                    i = arr.length;
-                } else {
-                    ++i;
-                }
-            }
-
-            if (n >= 0) {
-                arr.splice(n, 1);
-            } else {
-                arr.push({ ...col });
-            }
-            data[row.code] = [...arr];
-            return { ...data };
+            pre[row.code] = { ...col };
+            return { ...pre };
         });
     };
 
@@ -119,9 +79,7 @@ const Temp: React.FC = () => {
                                     return (
                                         <Item
                                             key={col.code}
-                                            active={activeOptions?.[row.code].some(
-                                                (data) => data.code === col.code,
-                                            )}
+                                            active={activeOptions?.[row.code].code === col.code}
                                             onClick={() => handleClick(row, col)}
                                             data={{ ...col }}
                                         />
