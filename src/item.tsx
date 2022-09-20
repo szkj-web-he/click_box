@@ -77,12 +77,7 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             ctx.stroke();
         };
         fn();
-        window.addEventListener("resize", fn);
-        document.fonts.addEventListener("loading", fn);
-        return () => {
-            window.removeEventListener("resize", fn);
-            document.fonts.removeEventListener("loading", fn);
-        };
+        void document.fonts.ready.then(fn);
     }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
