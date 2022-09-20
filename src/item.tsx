@@ -78,6 +78,7 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             ctx.stroke();
         };
         fn();
+        void document.fonts.ready.then(fn);
     }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
