@@ -7,7 +7,8 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React from "react";
-import hr from "./Image/hr.png";
+import centerIcon from "./Image/hr_center.png";
+import leftIcon from "./Image/hr_left.png";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -25,9 +26,11 @@ const Temp: React.FC = () => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <div className="hr">
-            <div className="hr_left" />
-            <img src={hr} alt="" className="hr_icon" />
-            <div className="hr_right" />
+            <div className="hr_line" />
+
+            <img src={leftIcon} alt="" className="hr_leftIcon" />
+            <img src={centerIcon} alt="" className="hr_icon" />
+            <img src={leftIcon} alt="" className="hr_rightIcon" />
         </div>
     );
 };

@@ -65,7 +65,7 @@ const Temp: React.FC = () => {
                         {n > 0 && <Hr />}
                         <Group className="row" index={n}>
                             <div
-                                className="question"
+                                className="groupTop"
                                 dangerouslySetInnerHTML={{
                                     __html: row.content,
                                 }}
