@@ -6,13 +6,12 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { comms } from ".";
-import Item from "./item";
-import { OptionProps } from "./unit";
-import { useEffect } from "react";
 import { Group } from "./Component/Group";
 import Hr from "./hr";
+import Item from "./item";
+import { OptionProps } from "./unit";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -105,7 +104,7 @@ const Temp: React.FC = () => {
                         {n > 0 && <Hr />}
                         <Group className="row" index={n}>
                             <div
-                                className="question"
+                                className="group_name"
                                 dangerouslySetInnerHTML={{
                                     __html: row.content,
                                 }}

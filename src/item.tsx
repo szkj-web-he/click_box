@@ -7,12 +7,13 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React, { useEffect, useRef } from "react";
+import star from "./Image/item_top.png";
+import topIcon1 from "./Image/item_top1.png";
+import topIcon2 from "./Image/item_top2.png";
+import topIcon3 from "./Image/item_top3.png";
 import { isMobile } from "./isMobile";
 import { OptionProps } from "./unit";
-import item from "./Image/item.png";
-// import leftBg from "./Image/btn_left.png";
-// import rightBg from "./Image/btn_right.png";
-/* import { useEffect } from 'react';
+/* 
 <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -129,13 +130,13 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
+            <img src={star} alt="" className="item_starIcon" />
             <div className="item_bg">
-                <div className="item_circle1" />
-                <div className="item_circle2" />
+                <img src={topIcon2} alt="" className="item_line1" />
+                <img src={topIcon1} alt="" className="item_line2" />
+                <img src={topIcon3} alt="" className="item_line3" />
             </div>
-            <img src={item} alt="" className="item_icon" />
-
-            <canvas ref={ref} className="item_border" />
+            <div className="item_innerBg" />
             <span
                 className="itemContent"
                 dangerouslySetInnerHTML={{

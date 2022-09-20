@@ -33,6 +33,13 @@ const Temp: React.FC<TempProps> = ({ active, placement }) => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <div className={`jumpBtn_${placement}${active ? " active" : ""}`}>
+            <div className="jumpBtn_bg">
+                <div className="jumpBtn_border">
+                    <div className="jumpBtn_innerBorder">
+                        <div className="jumpBtn_innerContent" />
+                    </div>
+                </div>
+            </div>
             <img src={icon} alt="" className="jumpBtn_icon" />
             <img src={iconActive} alt="" className="jumpBtn_iconActive" />
         </div>

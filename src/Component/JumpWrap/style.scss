@@ -35,14 +35,16 @@
 
 @mixin JumpBtnContainer {
     position: relative;
-    // background-image: url("../../Image/icon_triangleContainer.png");
     background-size: 100% 100%;
     background-position: center center;
     background-repeat: no-repeat;
     background-color: transparent;
     width: 100%;
     height: 100%;
+    opacity: 0.6;
+    transition: all 0.2s linear;
     &.active {
+        opacity: 1;
         .jumpBtn_icon {
             opacity: 0;
         }
@@ -60,21 +62,62 @@
         @include JumpBtnContainer();
         .jumpBtn_icon,
         .jumpBtn_iconActive {
-            transform: rotate(180deg);
+            transform: rotate(180deg) translateY(-2px);
         }
     }
 }
 
-@mixin TriangleIcon {
+.jumpBtn_bg {
+    background: linear-gradient(180deg, #a6a5a5 0%, #151514 99.97%);
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    border-radius: 50%;
+}
+
+.jumpBtn_border {
+    background: linear-gradient(180deg, #363636 0%, rgba(#c0c0c0, 0.84) 100%);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    border-radius: 50%;
+}
+
+.jumpBtn_innerBorder {
+    position: absolute;
+    top: 0.5px;
+    left: 0.5px;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    background: linear-gradient(180deg, #fba631 0%, #dd7700 100%);
+    border-radius: 50%;
+}
+
+.jumpBtn_innerContent {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: #f3af00;
+    box-shadow: inset 0px 4px 4px #ca7900;
+    border-radius: 50%;
+}
+
+@mixin TriangleIcon {
+    width: 15px;
+    height: 10px;
     object-fit: contain;
     object-position: center center;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -7.5px;
-    margin-left: -10px;
+    margin-top: -5px;
+    margin-left: -7.5px;
     transition: all 0.1s linear;
 }
 
