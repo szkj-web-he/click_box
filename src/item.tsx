@@ -10,10 +10,8 @@ import React, { useEffect, useRef } from "react";
 import { isMobile } from "./isMobile";
 import { OptionProps } from "./unit";
 import item from "./Image/item.png";
-// import leftBg from "./Image/btn_left.png";
-// import rightBg from "./Image/btn_right.png";
-/* import { useEffect } from 'react';
-<------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
+
+/* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
 interface TempProps {
