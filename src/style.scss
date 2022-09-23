@@ -37,24 +37,26 @@ body {
 }
 
 .questionContent {
-    color: #a9661c;
+    color: #fff;
     font-family: $fontFamily;
     font-style: normal;
     font-size: 20px;
     line-height: 30px;
     font-weight: 500;
     letter-spacing: 0.2px;
+    text-shadow: 1px 0 0 black, -1px 0 0 black, 0 1px 0 black, 0 -1px 0 black;
     backdrop-filter: blur(2px);
 }
 
 .questionDes {
-    color: #a9661c;
+    color: #f5f5f5;
     font-family: $fontFamily;
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 30px;
     letter-spacing: 0.2px;
+    text-shadow: 1px 0 0 black, -1px 0 0 black, 0 1px 0 black, 0 -1px 0 black;
 }
 
 .main {
@@ -68,7 +70,7 @@ body {
     justify-content: flex-start;
     flex-flow: row nowrap;
     font-family: $fontFamily;
-    color: #fff;
+    color: #212121;
     font-weight: 400;
     letter-spacing: 0.2px;
     font-size: 14px;
@@ -77,7 +79,7 @@ body {
 }
 
 .totalValue {
-    color: #ab661c;
+    color: #64fdfd;
     padding: 0 5px;
     flex: 0 0 auto;
 }
@@ -91,80 +93,88 @@ body {
     width: calc(100% + 20px);
 }
 
-.item_starIcon {
+.item_bg {
     position: absolute;
-    top: -8px;
-    width: 21px;
-    height: 21px;
-    left: 4px;
-    object-fit: contain;
-    object-position: center center;
-    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    clip-path: polygon(
+        0% 0%,
+        calc(100% - 8.5px) 0%,
+        100% 8.5px,
+        100% 100%,
+        8.5px 100%,
+        0 calc(100% - 8.5px),
+        0% 0%
+    );
+    background: rgba(255, 255, 255, 0.6);
+    z-index: 0;
+    transition: all 0.2s linear;
 }
 
-.item_bg {
+.item_icon {
+    position: absolute;
+    z-index: 10;
+    height: 14px;
+    width: auto;
+    object-fit: contain;
+    object-position: center center;
+    right: 3px;
+    bottom: 3px;
+}
+
+.item_circle1 {
+    position: absolute;
+    left: -8px;
+    top: -3px;
+    width: 47px;
+    height: 31px;
+    border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, #ff4c00 0%, rgba(254, 158, 117, 0) 100%);
+    opacity: 0.5;
+    filter: blur(2.5px);
+    z-index: 1;
+    transition: all 0.2s linear;
+}
+
+.item_circle2 {
+    position: absolute;
+    right: -5px;
+    bottom: 1px;
+    width: 45px;
+    height: 26px;
+    border-radius: 50%;
+    background: #4aece7;
+    opacity: 0.5;
+    filter: blur(8px);
+    z-index: 2;
+    transition: all 0.2s linear;
+}
+
+.item_border {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    background: #f5d990;
-    border: 0.4px solid #dfb860;
-    box-shadow: inset 0px -2px 2px #fbedc8;
-    border-radius: 6px;
-    box-sizing: border-box;
+    z-index: 5;
 }
 
-.item_line1 {
-    height: 4.18px;
-    width: auto;
-    top: 2px;
-    left: 9px;
+@mixin ItemBgImage {
     object-fit: contain;
     object-position: center center;
-    position: absolute;
-    z-index: 1;
-}
-
-.item_line2 {
-    height: 4.43px;
+    height: calc(100% - 2px);
     width: auto;
-    top: 1px;
-    right: 18px;
-    position: absolute;
-}
-
-.item_line3 {
-    height: 6px;
-    width: auto;
-    top: 0;
-    right: 4px;
-    position: absolute;
-}
-
-.item_innerBg {
-    position: absolute;
-    z-index: 7;
-    width: calc(100% - 6px);
-    height: calc(100% - 9px);
-    left: 3px;
-    top: 6px;
-    background-color: #aa661c;
-    border: 0.4px solid #dfb860;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 6px;
-    background-image: url("./Image/item_content.png");
-    background-size: 100% 100%;
-    background-position: top left;
-    background-repeat: no-repeat;
-    transition: all 0.1s linear;
+    flex: 0 0 auto;
 }
 
 .item {
     flex: 0 0 auto;
-    padding: 11px 24px 7px 24px;
-    color: #fff;
+    padding: 8px 28px;
+    color: black;
     letter-spacing: 0.2px;
     font-family: $fontFamily;
     font-style: normal;
@@ -176,11 +186,17 @@ body {
     transition: all 0.2s linear;
     cursor: pointer;
     position: relative;
-    box-sizing: border-box;
-
+    overflow: hidden;
     &.active {
-        .item_innerBg {
-            background-color: #784610;
+        .item_bg {
+            background-color: #f0b398;
+        }
+
+        .item_circle1 {
+            opacity: 0;
+        }
+        .item_circle2 {
+            opacity: 0;
         }
     }
 }

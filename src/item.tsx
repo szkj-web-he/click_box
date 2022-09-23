@@ -6,15 +6,13 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { useRef } from "react";
-import star from "./Image/item_top.png";
-import topIcon1 from "./Image/item_top1.png";
-import topIcon2 from "./Image/item_top2.png";
-import topIcon3 from "./Image/item_top3.png";
+import React, { useEffect, useRef } from "react";
 import { isMobile } from "./isMobile";
 import { OptionProps } from "./unit";
-
-/* 
+import item from "./Image/item.png";
+// import leftBg from "./Image/btn_left.png";
+// import rightBg from "./Image/btn_right.png";
+/* import { useEffect } from 'react';
 <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -34,9 +32,55 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
 
     const touchMove = useRef(false);
 
+    const ref = useRef<HTMLCanvasElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
+
+    useEffect(() => {
+        const fn = () => {
+            const el = ref.current;
+            if (!el) {
+                return;
+            }
+            const parent = el.parentElement;
+            if (!parent) {
+                return;
+            }
+            const width = parent.offsetWidth;
+            const height = parent.offsetHeight;
+
+            el.width = width;
+            el.height = height;
+            const ctx = el.getContext("2d");
+            if (!ctx) {
+                return;
+            }
+            const margin = 1.5;
+            const startX = margin;
+            const startY = margin;
+            const endX = width - margin;
+            const endY = height - margin;
+            const padding = 8;
+
+            ctx.beginPath();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 0.5;
+
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX - padding, startY);
+            ctx.lineTo(endX, startY + padding);
+            ctx.lineTo(endX, endY);
+            ctx.lineTo(startX + padding, endY);
+            ctx.lineTo(startX, endY - padding);
+            ctx.lineTo(startX, startY);
+            ctx.closePath();
+            ctx.stroke();
+        };
+        fn();
+        void document.fonts.ready.then(fn);
+    }, []);
+
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
     /************* This section will include this component general function *************/
@@ -86,13 +130,13 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
-            <img src={star} alt="" className="item_starIcon" />
             <div className="item_bg">
-                <img src={topIcon2} alt="" className="item_line1" />
-                <img src={topIcon1} alt="" className="item_line2" />
-                <img src={topIcon3} alt="" className="item_line3" />
+                <div className="item_circle1" />
+                <div className="item_circle2" />
             </div>
-            <div className="item_innerBg" />
+            <img src={item} alt="" className="item_icon" />
+
+            <canvas ref={ref} className="item_border" />
             <span
                 className="itemContent"
                 dangerouslySetInnerHTML={{
