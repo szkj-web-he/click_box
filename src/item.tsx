@@ -6,7 +6,7 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import star from "./Image/item_top.png";
 import topIcon1 from "./Image/item_top1.png";
 import topIcon2 from "./Image/item_top2.png";
@@ -33,53 +33,9 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
 
     const touchMove = useRef(false);
 
-    const ref = useRef<HTMLCanvasElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
-
-    useEffect(() => {
-        const fn = () => {
-            const el = ref.current;
-            if (!el) {
-                return;
-            }
-            const parent = el.parentElement;
-            if (!parent) {
-                return;
-            }
-            const rect = parent.getBoundingClientRect();
-
-            el.width = rect.width;
-            el.height = rect.height;
-            const ctx = el.getContext("2d");
-            if (!ctx) {
-                return;
-            }
-            const margin = 1.5;
-            const startX = margin;
-            const startY = margin;
-            const endX = rect.width - margin;
-            const endY = rect.height - margin;
-            const padding = 8;
-
-            ctx.beginPath();
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 0.5;
-
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(endX - padding, startY);
-            ctx.lineTo(endX, startY + padding);
-            ctx.lineTo(endX, endY);
-            ctx.lineTo(startX + padding, endY);
-            ctx.lineTo(startX, endY - padding);
-            ctx.lineTo(startX, startY);
-            ctx.closePath();
-            ctx.stroke();
-        };
-        fn();
-        void document.fonts.ready.then(fn);
-    }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
