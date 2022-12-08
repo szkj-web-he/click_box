@@ -39,6 +39,7 @@ const Main: React.FC = () => {
                 hidden={{
                     x: true,
                 }}
+                className="scrollWrapper"
             >
                 <Header />
                 <MainContent />
