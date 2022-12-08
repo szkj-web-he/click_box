@@ -8,8 +8,6 @@
 /** This section will include all the necessary dependence for this tsx file */
 import React from "react";
 import { OptionProps } from "./unit";
-import { isMobile } from "./isMobile";
-import { useRef } from "react";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -25,9 +23,7 @@ interface TempProps {
 const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const touchStart = useRef(false);
 
-    const touchMove = useRef(false);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
@@ -36,50 +32,12 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /************* This section will include this component general function *************/
 
     const handleClick = () => {
-        const mobileStatus = isMobile();
-        if (mobileStatus) {
-            return;
-        }
-        onClick();
-    };
-
-    const handleTouchStart = () => {
-        const mobileStatus = isMobile();
-        if (!mobileStatus) {
-            return;
-        }
-        touchStart.current = true;
-        touchMove.current = false;
-    };
-
-    const handleTouchMove = () => {
-        const mobileStatus = isMobile();
-        if (!mobileStatus) {
-            return;
-        }
-        touchMove.current = true;
-    };
-
-    const handleTouchEnd = () => {
-        if (touchMove.current) {
-            return;
-        }
-
-        if (!touchStart.current) {
-            return;
-        }
         onClick();
     };
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <div
-            className={`item${active ? " active" : ""}`}
-            onClick={handleClick}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-        >
+        <div className={`item${active ? " active" : ""}`} onClick={handleClick}>
             {data.content}
         </div>
     );

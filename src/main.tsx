@@ -32,6 +32,10 @@ const Temp: React.FC = () => {
     /************* This section will include this component general function *************/
 
     const handleClick = (item: OptionProps) => {
+        if (activeCode?.code === item.code) {
+            setActiveCode(undefined);
+            return;
+        }
         setActiveCode({ ...item });
     };
 
