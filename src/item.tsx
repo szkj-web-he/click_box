@@ -7,9 +7,8 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React, { useEffect, useRef } from "react";
-import { isMobile } from "./isMobile";
-import { OptionProps } from "./unit";
 import item from "./Image/item.png";
+import { OptionProps } from "./unit";
 // import leftBg from "./Image/btn_left.png";
 // import rightBg from "./Image/btn_right.png";
 /* import { useEffect } from 'react';
@@ -28,9 +27,6 @@ interface TempProps {
 const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const touchStart = useRef(false);
-
-    const touchMove = useRef(false);
 
     const ref = useRef<HTMLCanvasElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
@@ -86,50 +82,12 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /************* This section will include this component general function *************/
 
     const handleClick = () => {
-        const mobileStatus = isMobile();
-        if (mobileStatus) {
-            return;
-        }
-        onClick();
-    };
-
-    const handleTouchStart = () => {
-        const mobileStatus = isMobile();
-        if (!mobileStatus) {
-            return;
-        }
-        touchStart.current = true;
-        touchMove.current = false;
-    };
-
-    const handleTouchMove = () => {
-        const mobileStatus = isMobile();
-        if (!mobileStatus) {
-            return;
-        }
-        touchMove.current = true;
-    };
-
-    const handleTouchEnd = () => {
-        if (touchMove.current) {
-            return;
-        }
-
-        if (!touchStart.current) {
-            return;
-        }
         onClick();
     };
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <div
-            className={`item${active ? " active" : ""}`}
-            onClick={handleClick}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-        >
+        <div className={`item${active ? " active" : ""}`} onClick={handleClick}>
             <div className="item_bg">
                 <div className="item_circle1" />
                 <div className="item_circle2" />
