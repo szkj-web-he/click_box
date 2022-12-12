@@ -15,7 +15,6 @@ import iconActive from "../../../Image/icon_triangleActive.png";
 
 interface TempProps {
     active?: boolean;
-
     placement: "top" | "bottom";
 }
 
