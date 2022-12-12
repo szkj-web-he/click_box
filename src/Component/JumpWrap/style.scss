@@ -29,10 +29,6 @@
     @include button();
 }
 
-.top_triangle {
-    transform: rotate(180deg);
-}
-
 @mixin JumpBtnContainer {
     position: relative;
     background-size: 100% 100%;
