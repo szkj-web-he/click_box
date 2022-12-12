@@ -49,7 +49,13 @@ const Temp: React.FC = () => {
 
     const handleClick = (row: OptionProps, col: OptionProps) => {
         setActiveOptions((pre) => {
-            pre[row.code] = { ...col };
+            pre[row.code] =
+                pre[row.code].code === col.code
+                    ? {
+                          code: "",
+                          content: "",
+                      }
+                    : { ...col };
             return { ...pre };
         });
     };
