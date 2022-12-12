@@ -7,9 +7,9 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollComponent, ScrollProps } from "../Scroll";
+import { ScrollComponent, ScrollProps } from "../../Scroll";
 import { JumpContext } from "../Group/Unit/context";
-import { useHashId } from "./../../Hooks/useHashId";
+import { useHashId } from "./../../useHashId";
 import "./style.scss";
 import { getScrollBody } from "./Unit/getScrollBody";
 import Triangle from "./Unit/triangle";
@@ -140,8 +140,10 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                         }}
                     >
                         <Triangle
-                            className="top_triangle"
-                            color={topActive ? "#4D4D4D" : "#EBEBEB"}
+                            placement="top"
+                            active={topActive}
+                            // className="top_triangle"
+                            // color={topActive ? "#4D4D4D" : "#EBEBEB"}
                         />
                     </div>
                     <div
@@ -154,8 +156,10 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                         }}
                     >
                         <Triangle
-                            className="bottom_triangle"
-                            color={bottomActive && !isBottom ? "#4D4D4D" : "#EBEBEB"}
+                            placement="bottom"
+                            active={bottomActive && !isBottom}
+                            // className="bottom_triangle"
+                            // color={bottomActive && !isBottom ? "#4D4D4D" : "#EBEBEB"}
                         />
                     </div>
                 </div>

@@ -18,6 +18,8 @@
     justify-content: center;
     margin-bottom: 16px;
     cursor: pointer;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .toTop_button {
@@ -27,10 +29,6 @@
 .toBottom_button {
     margin-right: 16px;
     @include button();
-}
-
-.top_triangle {
-    transform: rotate(180deg);
 }
 
 @mixin JumpBtnContainer {
