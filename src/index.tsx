@@ -1,10 +1,9 @@
 import React from "react";
-import "./elementsFromPointPolyfill.ts";
 import "./font.scss";
 import "./style.scss";
 
 import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
-import JumpWrap from "./Components/jumpWrap";
+import JumpWrap from "./Components/JumpWrap";
 import Header from "./header";
 import MainContent from "./main";
 

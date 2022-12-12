@@ -6,12 +6,11 @@
  */
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { comms } from ".";
+import { Group } from "./Components/Group";
 import Item from "./item";
 import { OptionProps } from "./unit";
-import { useEffect } from "react";
-import { Row } from "./Components/row";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -48,7 +47,14 @@ const Temp: React.FC = () => {
 
     const handleClick = (row: OptionProps, col: OptionProps) => {
         setActiveOptions((pre) => {
-            pre[row.code] = { ...col };
+            pre[row.code] =
+                pre[row.code].code === col.code
+                    ? {
+                          code: "",
+                          content: "",
+                      }
+                    : { ...col };
+
             return { ...pre };
         });
     };
@@ -62,7 +68,7 @@ const Temp: React.FC = () => {
                 return (
                     <Fragment key={row.code}>
                         {n > 0 && <div className="blank" />}
-                        <Row className="row" index={n}>
+                        <Group className="row" index={n}>
                             <div
                                 className="question"
                                 dangerouslySetInnerHTML={{
@@ -88,7 +94,7 @@ const Temp: React.FC = () => {
                                     );
                                 })}
                             </div>
-                        </Row>
+                        </Group>
                     </Fragment>
                 );
             })}
