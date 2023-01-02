@@ -141,7 +141,7 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                     >
                         <Triangle
                             className="top_triangle"
-                            color={topActive ? "#4D4D4D" : "#EBEBEB"}
+                            color={topActive ? "#6997F2" : "#DCF1FE"}
                         />
                     </div>
                     <div
@@ -155,7 +155,7 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                     >
                         <Triangle
                             className="bottom_triangle"
-                            color={bottomActive && !isBottom ? "#4D4D4D" : "#EBEBEB"}
+                            color={bottomActive && !isBottom ? "#6997F2" : "#DCF1FE"}
                         />
                     </div>
                 </div>
