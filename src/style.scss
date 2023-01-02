@@ -131,7 +131,7 @@ body {
 .item {
     flex: 0 0 auto;
     padding: 25px 13px 5px 13px;
-    color: #4d4d4d;
+    color: #3e5c8f;
     letter-spacing: 0.2px;
     font-family: $fontFamily;
     font-style: normal;
@@ -143,6 +143,9 @@ body {
     transition: all 0.2s linear;
     cursor: pointer;
     position: relative;
+    &.active {
+        color: #0c2d64;
+    }
 }
 
 .itemContent {
