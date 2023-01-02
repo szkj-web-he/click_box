@@ -5,7 +5,7 @@ instruction: "请点击选项作答"
 # For the purposes of reproducing a bug
 options:
     [
-        { "code": "1", "content": "T恤" },
+        { "code": "1", "content": "<div>T</div><div>恤</div>" },
         { "code": "2", "content": "短袖" },
         { "code": "3", "content": "长裤" },
         { "code": "4", "content": "运动鞋" },
