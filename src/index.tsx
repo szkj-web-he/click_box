@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./font.scss";
 import "./style.scss";
 
 import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
 import Header from "./header";
 import MainContent from "./main";
+import bgIcon from "./Image/bg_icon.png";
+import iconActive from "./Image/icon_barActive.png";
+import iconGray from "./Image/icon_barGray.png";
+import { ImageContext } from "./context";
 
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
@@ -22,6 +26,13 @@ export const comms = new PluginComms({
 const Main: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
+    const [activeIconLoading, setActiveIconLoading] = useState(false);
+
+    const [grayIconLoading, setGrayIconLoading] = useState(false);
+
+    const activeRef = useRef<HTMLImageElement | null>(null);
+
+    const grayRef = useRef<HTMLImageElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
@@ -34,10 +45,35 @@ const Main: React.FC = () => {
 
     return (
         <div className="wrapper">
-            <div>
+            <div className="wrapper_body">
                 <Header />
-                <MainContent />
+                <ImageContext.Provider
+                    value={{
+                        grayLoading: grayIconLoading,
+                        activeLoading: activeIconLoading,
+                        activeEl: activeRef.current,
+                        grayEl: grayRef.current,
+                    }}
+                >
+                    <MainContent />
+                </ImageContext.Provider>
             </div>
+
+            <img src={bgIcon} className="wrapper_bgIcon" alt="" />
+            <img
+                src={iconActive}
+                alt=""
+                ref={activeRef}
+                onLoad={() => setActiveIconLoading(true)}
+                className="wrapper_btnIcon"
+            />
+            <img
+                src={iconGray}
+                alt=""
+                ref={grayRef}
+                onLoad={() => setGrayIconLoading(true)}
+                className="wrapper_btnIcon"
+            />
         </div>
     );
 };
