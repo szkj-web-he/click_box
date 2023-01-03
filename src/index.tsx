@@ -7,7 +7,7 @@ import Header from "./header";
 import MainContent from "./main";
 
 import flowerIcon from "./Image/bg_flower.png";
-import footerIcon from "./Image/bg_footer.png";
+import footerIcon from "./Image/bg_footerIcon.png";
 
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
@@ -38,7 +38,9 @@ const Main: React.FC = () => {
     return (
         <div className="wrapper">
             <img alt="" src={flowerIcon} className="flowerIcon" />
-            <img alt="" src={footerIcon} className="footerIcon" />
+            <div className="footerWrap">
+                <img alt="" src={footerIcon} className="footerIcon" />
+            </div>
             <div className="wrapper_body">
                 <Header />
                 <MainContent />

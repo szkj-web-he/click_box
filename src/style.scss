@@ -32,18 +32,44 @@ body {
     top: 0;
     right: 0;
     max-width: 20vw;
+    max-height: 24vh;
     pointer-events: none;
     user-select: none;
 }
 
-.footerIcon {
+.footerWrap {
     position: fixed;
     z-index: 0;
     bottom: 0;
     left: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
     width: 100%;
+    &::after {
+        content: "";
+        width: 100%;
+        position: absolute;
+        left: 0;
+        height: 37%;
+        background-image: url("./Image/bg_footerBg.png");
+        background-repeat: repeat-x;
+        background-color: transparent;
+        background-size: auto 100%;
+        background-position: left top;
+        z-index: 0;
+        bottom: 0;
+    }
+}
+
+.footerIcon {
+    max-height: 25vh;
+    max-width: 25vw;
     pointer-events: none;
     user-select: none;
+    position: relative;
+    z-index: 1;
 }
 
 .wrapper_body {
