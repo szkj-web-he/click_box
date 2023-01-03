@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { findParent } from "./findParent";
 import { getScrollBody } from "./getScrollBody";
 
 type RefObject<T> = React.MutableRefObject<T>;
@@ -30,10 +31,9 @@ export const getElements = (id: string): HTMLElement[] => {
 /**
  * 第一个node界定啊的top距离和第二个node节点的top距离之前的差值
  */
-export const sameTop = (el: HTMLElement, parent: HTMLElement): number => {
-    const elRect = el.getBoundingClientRect();
-    const parentRect = parent.getBoundingClientRect();
-    return elRect.top - parentRect.top;
+export const sameTop = (el: HTMLElement, scrollBody: HTMLElement): number => {
+    const top = findParent(el, scrollBody);
+    return top - scrollBody.scrollTop;
 };
 
 export const useActiveStatus = (
@@ -62,7 +62,6 @@ export const useActiveStatus = (
         for (let i = 0; i < arr.length; ) {
             const item = arr[i];
             const marginTop = sameTop(item, scrollBody);
-
             if (marginTop > -5) {
                 n = i;
                 i = arr.length;

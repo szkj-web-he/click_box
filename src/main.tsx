@@ -11,7 +11,7 @@ import { comms } from ".";
 import Item from "./item";
 import { OptionProps } from "./unit";
 import { useEffect } from "react";
-import { Group } from "./Component/Group";
+import { Group } from "./Components/Group";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */

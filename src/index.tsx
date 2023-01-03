@@ -2,7 +2,7 @@ import React from "react";
 import "./font.scss";
 import "./style.scss";
 import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
-import JumpWrap from "./Component/JumpWrap";
+import JumpWrap from "./Components/JumpWrap";
 import Header from "./header";
 import MainContent from "./main";
 

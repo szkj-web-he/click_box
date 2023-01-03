@@ -5,15 +5,15 @@
 export const findParent = (el: HTMLElement, parent: HTMLElement): number => {
     const offsetParent = el.offsetParent;
     let top = el.offsetTop;
-    if (offsetParent === parent.parentElement) {
+    if (offsetParent === parent.offsetParent) {
         return top;
     }
 
-    let p = el.parentElement;
+    let p = el.offsetParent;
 
-    while (p !== parent) {
+    while (p !== parent && p instanceof HTMLElement) {
         top += p?.offsetTop ?? 0;
-        p = p?.parentElement ?? null;
+        p = p?.offsetParent ?? null;
     }
     return top;
 };
