@@ -11,7 +11,7 @@ import { comms } from ".";
 import Item from "./item";
 import { OptionProps } from "./unit";
 import { useEffect } from "react";
-import { Group } from "./Component/Group";
+import { Group } from "./Components/Group";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -101,7 +101,13 @@ const Temp: React.FC = () => {
             {comms.config.options?.[0].map((row, n) => {
                 return (
                     <Fragment key={row.code}>
-                        {n > 0 && <div className="blank" />}
+                        {n > 0 && (
+                            <div className="hr">
+                                <div className="hr_left" />
+                                <div className="hr_center" />
+                                <div className="hr_right" />
+                            </div>
+                        )}
                         <Group className="row" index={n}>
                             <div
                                 className="question"
@@ -124,6 +130,7 @@ const Temp: React.FC = () => {
                                             onClick={() => handleClick(row, col)}
                                         >
                                             <span
+                                                className="itemContent"
                                                 dangerouslySetInnerHTML={{
                                                     __html: col.content,
                                                 }}
