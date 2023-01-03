@@ -127,10 +127,13 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
             >
                 {children}
             </ScrollComponent>
+
+            <div className={`jump_cover${show && !isBottom ? " active" : ""}`} />
+
             {show && (
                 <div className="floating_button">
                     <div
-                        className="toTop_button"
+                        className={`toTop_button${topActive ? " active" : ""}`}
                         onClick={(e) => {
                             if (!topActive || !e.nativeEvent.cancelable) {
                                 return;
@@ -141,11 +144,11 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                     >
                         <Triangle
                             className="top_triangle"
-                            color={topActive ? "#4D4D4D" : "#EBEBEB"}
+                            color={topActive ? "#6E5553" : "#D4B7A3"}
                         />
                     </div>
                     <div
-                        className="toBottom_button"
+                        className={`toBottom_button${bottomActive && !isBottom ? " active" : ""}`}
                         onClick={(e) => {
                             if (!bottomActive || isBottom || !e.nativeEvent.cancelable) {
                                 return;
@@ -155,7 +158,7 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                     >
                         <Triangle
                             className="bottom_triangle"
-                            color={bottomActive && !isBottom ? "#4D4D4D" : "#EBEBEB"}
+                            color={bottomActive && !isBottom ? "#6E5553" : "#D4B7A3"}
                         />
                     </div>
                 </div>

@@ -124,6 +124,7 @@ const Temp: React.FC = () => {
                                             onClick={() => handleClick(row, col)}
                                         >
                                             <span
+                                                className="itemContent"
                                                 dangerouslySetInnerHTML={{
                                                     __html: col.content,
                                                 }}
