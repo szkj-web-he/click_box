@@ -19,7 +19,63 @@ body {
 }
 
 .wrapper {
-    background-color: #fff;
+    background-image: url("./Image/bg.png");
+    background-position: right bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.flowerIcon {
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    max-width: 20vw;
+    max-height: 24vh;
+    pointer-events: none;
+    user-select: none;
+}
+
+.footerWrap {
+    position: fixed;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
+    width: 100%;
+    &::after {
+        content: "";
+        width: 100%;
+        position: absolute;
+        left: 0;
+        height: 37%;
+        background-image: url("./Image/bg_footerBg.png");
+        background-repeat: repeat-x;
+        background-color: transparent;
+        background-size: auto 100%;
+        background-position: left top;
+        z-index: 0;
+        bottom: 0;
+    }
+}
+
+.footerIcon {
+    max-height: 25vh;
+    max-width: 25vw;
+    pointer-events: none;
+    user-select: none;
+    position: relative;
+    z-index: 1;
+}
+
+.wrapper_body {
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .question {
@@ -32,7 +88,7 @@ body {
 }
 
 .questionContent {
-    color: #212121;
+    color: #69504e;
     font-family: $fontFamily;
     font-style: normal;
     font-size: 20px;
@@ -41,7 +97,7 @@ body {
 }
 
 .questionDes {
-    color: #757575;
+    color: #8b7b7a;
     font-family: $fontFamily;
     font-style: normal;
     font-weight: 400;
@@ -62,7 +118,7 @@ body {
     justify-content: flex-start;
     flex-flow: row nowrap;
     font-family: $fontFamily;
-    color: #bdbdbd;
+    color: #69504e;
     font-weight: 400;
     letter-spacing: 0.2px;
     font-size: 14px;
@@ -71,7 +127,7 @@ body {
 }
 
 .totalValue {
-    color: #22a6b3;
+    color: #ff8a85;
     padding: 0 5px;
     flex: 0 0 auto;
 }
@@ -87,8 +143,8 @@ body {
 
 .item {
     flex: 0 0 auto;
-    padding: 8px 12px;
-    color: #4d4d4d;
+    padding: 5px 9px;
+    color: #69504e;
     letter-spacing: 0.2px;
     font-family: $fontFamily;
     font-style: normal;
@@ -96,14 +152,30 @@ body {
     font-size: 14px;
     line-height: 20px;
     margin-bottom: 16.5px;
-    border: 0.6px solid #ebebeb;
-    border-radius: 6px;
+
     margin-right: 20px;
-    transition: all 0.2s linear;
+    transition: all 0.1s linear;
     cursor: pointer;
+    background-color: #efdecc;
+
+    border-image-slice: 8 6 6 7;
+    border-image-width: 8px 6px 6px 7px;
+    border-image-outset: 0px 0px 0px 0px;
+    border-image-repeat: stretch stretch;
+    border-image-source: url("./Image/btn_border.png");
+    border-style: solid;
+    position: relative;
+
+    &::after {
+        content: url("./Image/btn_icon.png");
+        position: absolute;
+        right: -5px - 3px;
+        bottom: -4.3px - 8px;
+        z-index: 1;
+    }
     &.active {
-        background-color: #f7feff;
-        border-color: #3cbbc7;
-        color: #22a6b3;
+        background-color: #d2b4a0;
+        color: #69504e;
+        box-shadow: 0 0 3px #fff;
     }
 }

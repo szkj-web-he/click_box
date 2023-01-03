@@ -6,6 +6,9 @@ import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
 import Header from "./header";
 import MainContent from "./main";
 
+import flowerIcon from "./Image/bg_flower.png";
+import footerIcon from "./Image/bg_footerIcon.png";
+
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
 }) as {
@@ -34,8 +37,14 @@ const Main: React.FC = () => {
 
     return (
         <div className="wrapper">
-            <Header />
-            <MainContent />
+            <img alt="" src={flowerIcon} className="flowerIcon" />
+            <div className="footerWrap">
+                <img alt="" src={footerIcon} className="footerIcon" />
+            </div>
+            <div className="wrapper_body">
+                <Header />
+                <MainContent />
+            </div>
         </div>
     );
 };
