@@ -24,7 +24,7 @@ const Temp: React.FC = () => {
     /************* This section will include this component general function *************/
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <div className="question">
+        <div className="questionWrapper">
             <div
                 className="questionContent"
                 dangerouslySetInnerHTML={{

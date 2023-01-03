@@ -7,6 +7,9 @@ import JumpWrap from "./Components/JumpWrap";
 import Header from "./header";
 import MainContent from "./main";
 
+import flowerIcon from "./Image/bg_flower.png";
+import footerIcon from "./Image/bg_footerIcon.png";
+
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
 }) as {
@@ -36,7 +39,11 @@ const Main: React.FC = () => {
 
     return (
         <div className="wrapper">
-            <JumpWrap>
+            <img alt="" src={flowerIcon} className="flowerIcon" />
+            <div className="footerWrap">
+                <img alt="" src={footerIcon} className="footerIcon" />
+            </div>
+            <JumpWrap bodyClassName="wrapper_body">
                 <Header />
                 <MainContent />
             </JumpWrap>
