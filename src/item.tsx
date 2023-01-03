@@ -38,7 +38,12 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <div className={`item${active ? " active" : ""}`} onClick={handleClick}>
-            {data.content}
+            <span
+                dangerouslySetInnerHTML={{
+                    __html: data.content,
+                }}
+                className={"itemContent"}
+            />
         </div>
     );
 };
