@@ -19,7 +19,16 @@ import { useEffect } from "react";
 const Temp: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const [activeCode, setActiveCode] = useState<OptionProps>();
+    const [activeCode, setActiveCode] = useState<OptionProps | undefined>(() => {
+        const state = comms.state as Record<string, string>;
+        const options = comms.config.options ?? [];
+        let value = "";
+        for (const key in state) {
+            value = state[key];
+        }
+
+        return options.find((item) => item.code === value);
+    });
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
