@@ -1,7 +1,7 @@
 import React from "react";
 import "./font.scss";
 import "./style.scss";
-import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
+import { ConfigYML, PluginComms } from "@datareachable/dr-plugin-sdk";
 import JumpWrap from "./Components/JumpWrap";
 import Header from "./header";
 import MainContent from "./main";
@@ -34,7 +34,7 @@ const Main: React.FC = () => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
 
     return (
-        <JumpWrap>
+        <JumpWrap className="wrapper">
             <Header />
             <MainContent />
         </JumpWrap>
