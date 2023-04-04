@@ -24,6 +24,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    padding: 20px;
     &::after {
         content: "";
         position: fixed;
