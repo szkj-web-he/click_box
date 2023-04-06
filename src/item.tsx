@@ -96,16 +96,15 @@ const Temp: React.FC<TempProps> = ({
         return () => {
             timer.current && window.cancelAnimationFrame(timer.current);
         };
-    }, [active]);
+    }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
     /************* This section will include this component general function *************/
 
-    const blurAnimate = (speed: number) => {
+    const blurAnimate = (speed: number, jumpActive?: boolean) => {
         timer.current && window.cancelAnimationFrame(timer.current);
-
-        if (speed > 0 && active) {
+        if (!jumpActive && speed > 0 && active) {
             return;
         }
         const bgEl = bgRef.current;
@@ -181,45 +180,10 @@ const Temp: React.FC<TempProps> = ({
     };
 
     const handleClick = () => {
-        const bgEl = bgRef.current;
-        if (!bgEl) {
-            return;
-        }
-        const el = ref.current;
-        if (!el) {
-            return;
-        }
-
-        bgEl.width = el.width + (shadowBlur.current + 1) * 2;
-        bgEl.height = el.height + (shadowBlur.current + 1) * 2;
-        const ctx = bgEl.getContext("2d");
-        if (!ctx) {
-            return;
-        }
-        ctx.translate(shadowBlur.current + 1, shadowBlur.current + 1);
-        ctx.clearRect(
-            -(shadowBlur.current + 1),
-            -(shadowBlur.current + 1),
-            bgEl.width,
-            bgEl.height,
-        );
         if (active) {
-            opacity.current = 1;
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 0;
-            ctx.shadowBlur = shadowBlur.current;
-            ctx.shadowColor = `rgba(0, 117, 158,${opacity.current})`;
-            drawMedicineCabinet(
-                ctx,
-                false,
-                activeEl.current,
-                activeLoadingRef.current,
-                grayEl.current,
-                grayLoadingRef.current,
-                shadowBlur.current + 1,
-            );
+            blurAnimate(0.1, true);
         } else {
-            opacity.current = 0;
+            blurAnimate(-0.1, true);
         }
 
         onClick();
