@@ -1,4 +1,4 @@
-import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
+import { ConfigYML, PluginComms } from "@datareachable/dr-plugin-sdk";
 import React, { useRef, useState } from "react";
 import JumpWrap from "./Components/JumpWrap";
 import { ImageContext } from "./context";
@@ -51,8 +51,8 @@ const Main: React.FC = () => {
                     value={{
                         grayLoading: grayIconLoading,
                         activeLoading: activeIconLoading,
-                        activeEl: activeRef.current,
-                        grayEl: grayRef.current,
+                        activeEl: activeRef,
+                        grayEl: grayRef,
                     }}
                 >
                     <MainContent />

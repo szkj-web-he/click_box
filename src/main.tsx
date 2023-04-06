@@ -9,7 +9,7 @@
 import React, { Fragment, useState } from "react";
 import { comms } from ".";
 import Item from "./item";
-import { OptionProps } from "./unit";
+import { getState, OptionProps } from "./unit";
 import { useEffect } from "react";
 import { Group } from "./Components/Group";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
@@ -22,12 +22,7 @@ const Temp: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
     const [activeOptions, setActiveOptions] = useState(() => {
-        const arr = comms.config.options?.[0] ?? [];
-        const state: Record<string, OptionProps[]> = {};
-        for (let i = 0; i < arr.length; i++) {
-            state[arr[i].code] = [];
-        }
-        return { ...state };
+        return getState();
     });
 
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
