@@ -18,6 +18,10 @@ body {
     overflow: hidden;
 }
 
+.scroll_scrollBody {
+    padding: 20px;
+}
+
 .wrapper {
     background-color: #fff;
     background-image: url("./Image/bg.png");
@@ -193,6 +197,9 @@ body {
                 background-color: #ffbd12;
             }
         }
+    }
+    &:not(.active):hover {
+        box-shadow: 0 0 4px #981700;
     }
 }
 

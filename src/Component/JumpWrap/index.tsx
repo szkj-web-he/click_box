@@ -54,7 +54,7 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
 
     useEffect(() => {
         if (!loading) {
-            update();
+            update.current();
         }
     }, [loading, update]);
 
@@ -62,7 +62,7 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
         let timer: null | number = null;
         const mainFn = () => {
             timer && window.clearTimeout(timer);
-            timer = window.setTimeout(update);
+            timer = window.setTimeout(update.current);
         };
 
         window.addEventListener("resize", mainFn);
@@ -81,38 +81,28 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
         if (!scrollBody) {
             return;
         }
-        if (n < 0) {
-            n = 0;
-        }
 
         const arr = getElements(id);
 
-        if (n >= arr.length) {
-            n = arr.length - 1;
+        let index = n;
+        if (index < 0) {
+            index = 0;
+        } else if (index >= arr.length) {
+            index = arr.length - 1;
         }
-        let toEl: HTMLElement | null = null;
-        for (let i = 0; i < arr.length; ) {
-            const el = arr[i];
-            const index = Number(el.getAttribute("data-index"));
-            if (index === n) {
-                toEl = el;
-                i = arr.length;
-            } else {
-                ++i;
-            }
+
+        const toEl = document.querySelector(`.${id}[data-index="${index}"]`);
+        if (toEl instanceof HTMLElement) {
+            scrollBody.scrollTo({
+                top: findParent(toEl, scrollBody),
+                behavior: "smooth",
+            });
         }
-        if (!toEl) {
-            return;
-        }
-        scrollBody.scrollTo({
-            top: findParent(toEl, scrollBody),
-            behavior: "smooth",
-        });
     };
 
     const handleScroll = () => {
         timer.current && window.clearTimeout(timer.current);
-        timer.current = window.setTimeout(update, 50);
+        timer.current = window.setTimeout(update.current, 50);
     };
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
@@ -125,35 +115,35 @@ const JumpWrap: React.FC<ScrollProps> = ({ children, style, ...props }) => {
                 hidden={{ x: true }}
                 {...props}
             >
-                {children}
-            </ScrollComponent>
-            {show && (
-                <div className="floating_button">
-                    <div
-                        className="toTop_button"
-                        onClick={(e) => {
-                            if (!topActive || !e.nativeEvent.cancelable) {
-                                return;
-                            }
+                {children}{" "}
+                {show && (
+                    <div className="floating_button">
+                        <div
+                            className="toTop_button"
+                            onClick={(e) => {
+                                if (!topActive || !e.nativeEvent.cancelable) {
+                                    return;
+                                }
 
-                            jumpTo(activeIndex.current - 1);
-                        }}
-                    >
-                        <Triangle active={topActive} placement="top" />
+                                jumpTo(activeIndex.current - 1);
+                            }}
+                        >
+                            <Triangle active={topActive} placement="top" />
+                        </div>
+                        <div
+                            className="toBottom_button"
+                            onClick={(e) => {
+                                if (!bottomActive || isBottom || !e.nativeEvent.cancelable) {
+                                    return;
+                                }
+                                jumpTo(activeIndex.current + 1);
+                            }}
+                        >
+                            <Triangle active={bottomActive && !isBottom} placement="bottom" />
+                        </div>
                     </div>
-                    <div
-                        className="toBottom_button"
-                        onClick={(e) => {
-                            if (!bottomActive || isBottom || !e.nativeEvent.cancelable) {
-                                return;
-                            }
-                            jumpTo(activeIndex.current + 1);
-                        }}
-                    >
-                        <Triangle active={bottomActive && !isBottom} placement="bottom" />
-                    </div>
-                </div>
-            )}
+                )}
+            </ScrollComponent>
         </JumpContext.Provider>
     );
 };
