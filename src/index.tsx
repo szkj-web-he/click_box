@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./font.scss";
 import "./style.scss";
 
-import { ConfigYML, PluginComms } from "@possie-engine/dr-plugin-sdk";
+import { ConfigYML, PluginComms } from "@datareachable/dr-plugin-sdk";
 import JumpWrap from "./Components/JumpWrap";
 import Header from "./header";
 import MainContent from "./main";
@@ -57,8 +57,8 @@ const Main: React.FC = () => {
                     value={{
                         grayLoading: grayIconLoading,
                         activeLoading: activeIconLoading,
-                        activeEl: activeRef.current,
-                        grayEl: grayRef.current,
+                        activeEl: activeRef,
+                        grayEl: grayRef,
                     }}
                 >
                     <MainContent />
