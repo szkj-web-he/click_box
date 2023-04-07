@@ -60,3 +60,90 @@ export const getState = (): Record<string, Array<OptionProps>> => {
 
     return stateData;
 };
+
+export const draw = (ctx: CanvasRenderingContext2D, isBlur = false): void => {
+    let { width, height } = ctx.canvas;
+    let margin = 1.5;
+    let color = "#000";
+    let padding = 8;
+    let lineWidth = 0.5;
+    if (isBlur) {
+        const blur = 3;
+        width -= blur;
+        height -= blur;
+        margin = blur;
+        lineWidth = 1;
+        padding = 8.5;
+        color = "rgba(129, 38, 0, 0.6)";
+    }
+    const startX = margin - lineWidth / 2;
+    const startY = margin - lineWidth / 2;
+    const endX = width - margin;
+    const endY = height - margin;
+
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX - padding, startY);
+    ctx.lineTo(endX, startY + padding);
+    ctx.lineTo(endX, endY);
+    ctx.lineTo(startX + padding, endY);
+    ctx.lineTo(startX, endY - padding);
+    ctx.lineTo(startX, startY);
+    ctx.closePath();
+    ctx.stroke();
+};
+
+/**
+ * 找出最小的number
+ */
+const findMin = (arr: Array<number>) => {
+    let min = arr[0];
+    for (let i = 1; i < arr.length; i++) {
+        const val = arr[i];
+        if (val < min) {
+            min = val;
+        }
+    }
+    return min;
+};
+
+/**
+ * 获取小数位
+ * @param args
+ */
+const fetchDecimal = (num: number) => {
+    const numStr = num.toString();
+    return numStr.includes(".") ? numStr.split(".")[1].length : 0;
+};
+
+/**
+ * 将所有的数字扩大相应的倍数
+ *
+ * 产生新的数字
+ */
+
+const toBigForNumber = (arr: Array<number>, type: "+" | "-") => {
+    const minVal = findMin(arr);
+    const length = fetchDecimal(minVal);
+    const expansion = 10 ** length;
+
+    let total = arr[0] * expansion;
+    for (let i = 1; i < arr.length; i++) {
+        const value = arr[i] * expansion;
+        if (type === "-") {
+            total -= value;
+        } else {
+            total += value;
+        }
+    }
+    return total / expansion;
+};
+/**
+ * 相加
+ */
+export const sum = (...args: Array<number>): number => {
+    return toBigForNumber(args, "+");
+};
