@@ -15,7 +15,6 @@ import iconActive from "../../../Image/icon_triangleActive.png";
 
 interface TempProps {
     active?: boolean;
-
     placement: "top" | "bottom";
 }
 
@@ -37,8 +36,6 @@ const Temp: React.FC<TempProps> = ({ active, placement }) => {
             <img src={iconActive} alt="" className="jumpBtn_iconActive" />
         </div>
     );
-
-    // <img src={active ? iconActive : icon}  />;
 };
 /* <------------------------------------ **** FUNCTION COMPONENT END **** ------------------------------------ */
 export default Temp;
