@@ -73,7 +73,7 @@ body {
 }
 
 .wrapper_body {
-    padding: 0 20px;
+    padding: 20px;
     position: relative;
     z-index: 2;
 }
@@ -176,6 +176,10 @@ body {
         background-color: #d2b4a0;
         color: #69504e;
         box-shadow: 0 0 3px #fff;
+    }
+    transition: box-shadow 0.1s linear;
+    &:not(.active):hover {
+        box-shadow: 0 0 4px rgba(105, 80, 78, 0.8);
     }
 }
 

@@ -10,7 +10,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { comms } from ".";
 import { Group } from "./Components/Group";
 import Item from "./item";
-import { OptionProps } from "./unit";
+import { getState, OptionProps } from "./unit";
+import { deepCloneData } from "./unit";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -21,22 +22,17 @@ const Temp: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
     const [activeOptions, setActiveOptions] = useState(() => {
-        const arr = comms.config.options?.[0] ?? [];
-        const state: Record<string, OptionProps> = {};
-        for (let i = 0; i < arr.length; i++) {
-            state[arr[i].code] = { code: "", content: "" };
-        }
-        return { ...state };
+        return getState();
     });
 
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
     useEffect(() => {
-        const state: Record<string, string> = {};
+        const state: Record<string, string | null> = {};
 
         for (const key in activeOptions) {
-            state[key] = activeOptions[key].code;
+            state[key] = activeOptions[key]?.code ?? null;
         }
         comms.state = state;
     }, [activeOptions]);
@@ -47,15 +43,13 @@ const Temp: React.FC = () => {
 
     const handleClick = (row: OptionProps, col: OptionProps) => {
         setActiveOptions((pre) => {
-            pre[row.code] =
-                pre[row.code].code === col.code
-                    ? {
-                          code: "",
-                          content: "",
-                      }
-                    : { ...col };
-
-            return { ...pre };
+            const data = deepCloneData(pre);
+            if (data[row.code]?.code === col.code) {
+                data[row.code] = null;
+            } else {
+                data[row.code] = deepCloneData(col);
+            }
+            return { ...data };
         });
     };
 
@@ -84,7 +78,7 @@ const Temp: React.FC = () => {
                                     return (
                                         <Item
                                             key={col.code}
-                                            active={activeOptions?.[row.code].code === col.code}
+                                            active={activeOptions?.[row.code]?.code === col.code}
                                             onClick={() => handleClick(row, col)}
                                         >
                                             <span
