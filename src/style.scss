@@ -24,16 +24,10 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    &::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        background-color: rgba($color: #fff, $alpha: 0.25);
-    }
+}
+
+.scroll_scrollBody {
+    padding: 20px;
 }
 
 .question {
@@ -193,6 +187,9 @@ body {
                 background-color: #ffbd12;
             }
         }
+    }
+    &:not(.active):hover {
+        box-shadow: 0 0 4px #981700;
     }
 }
 
