@@ -24,16 +24,12 @@ export const getScrollValue = (): {
 };
 
 export const draw = (ctx: CanvasRenderingContext2D, isBlur = false): void => {
-    let { width, height } = ctx.canvas;
-    let margin = 1.5;
+    const { width, height } = ctx.canvas;
+    const margin = 1;
     let color = "#000";
     let padding = 8;
     let lineWidth = 0.5;
     if (isBlur) {
-        const blur = 3;
-        width -= blur;
-        height -= blur;
-        margin = blur;
         lineWidth = 1;
         padding = 8.5;
         color = "rgba(129, 38, 0, 0.6)";

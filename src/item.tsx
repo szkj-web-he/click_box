@@ -69,8 +69,8 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
 
             const rect = parent.getBoundingClientRect();
 
-            bgEl.width = rect.width + 3 * 2;
-            bgEl.height = rect.height + 3 * 2;
+            bgEl.width = rect.width;
+            bgEl.height = rect.height;
             const ctx = bgEl.getContext("2d");
             if (!ctx) {
                 return;
