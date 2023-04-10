@@ -7,9 +7,8 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 import React, { useEffect, useRef } from "react";
-import { isMobile } from "./isMobile";
-import { OptionProps } from "./unit";
 import item from "./Image/item.png";
+import { OptionProps, draw } from "./unit";
 
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
@@ -26,11 +25,10 @@ interface TempProps {
 const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const touchStart = useRef(false);
-
-    const touchMove = useRef(false);
 
     const ref = useRef<HTMLCanvasElement | null>(null);
+
+    const hoverRef = useRef<HTMLCanvasElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
@@ -45,38 +43,47 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             if (!parent) {
                 return;
             }
-            const width = parent.offsetWidth;
-            const height = parent.offsetHeight;
 
-            el.width = width;
-            el.height = height;
+            const rect = parent.getBoundingClientRect();
+
+            el.width = rect.width;
+            el.height = rect.height;
             const ctx = el.getContext("2d");
             if (!ctx) {
                 return;
             }
-            const margin = 1.5;
-            const startX = margin;
-            const startY = margin;
-            const endX = width - margin;
-            const endY = height - margin;
-            const padding = 8;
 
-            ctx.beginPath();
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 0.5;
-
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(endX - padding, startY);
-            ctx.lineTo(endX, startY + padding);
-            ctx.lineTo(endX, endY);
-            ctx.lineTo(startX + padding, endY);
-            ctx.lineTo(startX, endY - padding);
-            ctx.lineTo(startX, startY);
-            ctx.closePath();
-            ctx.stroke();
+            draw(ctx);
         };
-        fn();
-        void document.fonts.ready.then(fn);
+
+        const fn2 = () => {
+            const bgEl = hoverRef.current;
+            if (!bgEl) {
+                return;
+            }
+            const parent = bgEl.parentElement;
+            if (!parent) {
+                return;
+            }
+
+            const rect = parent.getBoundingClientRect();
+
+            bgEl.width = rect.width + 3 * 2;
+            bgEl.height = rect.height + 3 * 2;
+            const ctx = bgEl.getContext("2d");
+            if (!ctx) {
+                return;
+            }
+
+            draw(ctx, true);
+        };
+
+        const main = () => {
+            fn();
+            fn2();
+        };
+        main();
+        void document.fonts.ready.then(main);
     }, []);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
@@ -84,50 +91,12 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
     /************* This section will include this component general function *************/
 
     const handleClick = () => {
-        const mobileStatus = isMobile();
-        if (mobileStatus) {
-            return;
-        }
-        onClick();
-    };
-
-    const handleTouchStart = () => {
-        const mobileStatus = isMobile();
-        if (!mobileStatus) {
-            return;
-        }
-        touchStart.current = true;
-        touchMove.current = false;
-    };
-
-    const handleTouchMove = () => {
-        const mobileStatus = isMobile();
-        if (!mobileStatus) {
-            return;
-        }
-        touchMove.current = true;
-    };
-
-    const handleTouchEnd = () => {
-        if (touchMove.current) {
-            return;
-        }
-
-        if (!touchStart.current) {
-            return;
-        }
         onClick();
     };
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <div
-            className={`item${active ? " active" : ""}`}
-            onClick={handleClick}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-        >
+        <div className={`item${active ? " active" : ""}`} onClick={handleClick}>
             <div className="item_bg">
                 <div className="item_circle1" />
                 <div className="item_circle2" />
@@ -135,6 +104,7 @@ const Temp: React.FC<TempProps> = ({ data, active, onClick }) => {
             <img src={item} alt="" className="item_icon" />
 
             <canvas ref={ref} className="item_border" />
+            <canvas ref={hoverRef} className="item_bgHover" />
             <span
                 className="itemContent"
                 dangerouslySetInnerHTML={{

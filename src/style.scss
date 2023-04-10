@@ -26,6 +26,10 @@ body {
     background-position: center center;
 }
 
+.scroll_scrollBody {
+    padding: 20px;
+}
+
 .question {
     display: flex;
     align-items: center;
@@ -199,9 +203,25 @@ body {
             opacity: 0;
         }
     }
+    &:not(.active):hover {
+        .item_bgHover {
+            opacity: 1;
+        }
+    }
 }
 
 .itemContent {
     position: relative;
     z-index: 10;
+}
+
+.item_bgHover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(3px);
+    opacity: 0;
+    transition: all 0.1s linear;
 }
