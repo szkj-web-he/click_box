@@ -40,6 +40,10 @@ body {
     z-index: 1;
 }
 
+.scroll_scrollBody {
+    padding: 20px;
+}
+
 .question {
     display: flex;
     align-items: center;
@@ -113,6 +117,7 @@ body {
     left: 1.5px;
     height: 100%;
     top: 0;
+    transition: box-shadow 0.1s linear;
 }
 
 @mixin ItemBgImage {
@@ -175,7 +180,7 @@ body {
     line-height: 20px;
     margin-bottom: 16.5px;
     margin-right: 20px;
-    transition: all 0.2s linear;
+    transition: all 0.1s linear;
     cursor: pointer;
     opacity: 0.7;
     position: relative;
@@ -192,6 +197,11 @@ body {
             &::before {
                 background-color: #ffbd12;
             }
+        }
+    }
+    &:not(.active):hover {
+        .item_bg {
+            box-shadow: 0 0 4px rgba(#981700, 1);
         }
     }
 }
