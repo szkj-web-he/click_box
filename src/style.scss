@@ -26,6 +26,10 @@ body {
     background-position: center center;
 }
 
+.scroll_scrollBody {
+    padding: 20px;
+}
+
 .question {
     display: flex;
     align-items: center;
@@ -59,7 +63,6 @@ body {
 
 .main {
     width: 100%;
-    overflow: hidden;
 }
 
 .total {
@@ -177,11 +180,14 @@ body {
     cursor: pointer;
     position: relative;
     box-sizing: border-box;
-
+    border-radius: 6px;
     &.active {
         .item_innerBg {
             background-color: #5f370c;
         }
+    }
+    &:not(.active):hover {
+        box-shadow: 0 0 4px rgba(#8b4900, 1);
     }
 }
 
