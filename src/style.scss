@@ -178,4 +178,7 @@ body {
         color: #69504e;
         box-shadow: 0 0 3px #fff;
     }
+    &:not(.active):hover {
+        box-shadow: 0 0 4px rgba(105, 80, 78, 0.8);
+    }
 }
