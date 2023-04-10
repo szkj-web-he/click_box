@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from "react";
 import { comms } from ".";
 import Item from "./item";
-import { OptionProps } from "./unit";
+import { OptionProps, getState } from "./unit";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -18,7 +18,7 @@ import { OptionProps } from "./unit";
 const Temp: React.FC = () => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    const [activeCode, setActiveCode] = useState<OptionProps[]>();
+    const [activeCode, setActiveCode] = useState(getState);
 
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
