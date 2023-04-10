@@ -190,7 +190,6 @@ body {
     transition: all 0.2s linear;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
     &.active {
         .item_bg {
             background-color: #f0b398;
