@@ -201,7 +201,7 @@ body {
     }
     &:not(.active):hover {
         .item_bg {
-            box-shadow: 0 0 4px rgba(#981700, 1);
+            box-shadow: 0 0 8px rgba(#981700, 0.7);
         }
     }
 }
